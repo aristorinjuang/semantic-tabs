@@ -1,0 +1,30 @@
+{
+  "name": "semantic-tabs",
+  "version": "1.0.0",
+  "description": "SemanticTabs is a pure JavaScript or VanillaJS library built on TypeScript that can convert semantic HTML tags to tabs. It is only 1.4 kB.",
+  "main": "semantic-tabs.js",
+  "scripts": {
+    "build": "tsc && minify semantic-tabs.js > semantic-tabs.min.js",
+    "dev": "tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/aristorinjuang/semantic-tabs.git"
+  },
+  "keywords": [
+    "semantic",
+    "tabs",
+    "vanillajs",
+    "javascript",
+    "typescript"
+  ],
+  "author": "Aristo Rinjuang <contact@aristorinjuang.com> (https://aristorinjuang.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aristorinjuang/semantic-tabs/issues"
+  },
+  "homepage": "https://github.com/aristorinjuang/semantic-tabs#readme",
+  "devDependencies": {
+    "minify": "^9.1.0"
+  }
+}

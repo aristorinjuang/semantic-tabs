@@ -1,1 +1,1 @@
-SemanticTabs('#semantic-tabs');
+SemanticTabs('semantic-tabs');

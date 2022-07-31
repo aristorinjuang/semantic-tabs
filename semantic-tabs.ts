@@ -1,69 +1,72 @@
 const SemanticTabs = (
-  elementId: string,
+  elements: string = 'semantic-tabs',
   componentClass: string = 'semantic-tabs-component',
   elementClass: string = 'semantic-tabs-element',
   head: string = 'h3',
-  headsID: string = 'semantic-tabs-heads'
+  heads: string = 'semantic-tabs-heads'
 ) => {
-  if (elementId === '') {
-    elementId = '#semantic-tabs';
-  }
-  elementId = elementId.substring(1);
-  const newHeads: HTMLUListElement = document.createElement('ul');
+  let htmlElements = document.getElementsByClassName(elements);
+  let htmlElementIndex = 0;
 
-  newHeads.setAttribute('id', headsID);
+  for (let htmlElement of htmlElements) {
+    let componentClassIndex = `${componentClass}-${htmlElementIndex}`;
+    let newHeads: HTMLUListElement = document.createElement('ul');
 
-  let element: HTMLElement = document.getElementById(elementId)!;
-  let children: HTMLCollection = element.children;
+    newHeads.classList.add(heads);
 
-  let i: number = 0;
-  for (let c of children) {
-    if (c.tagName === head.toUpperCase()) {
-      let newHead = document.createElement('li');
-      let wrapper = document.createElement('div');
-  
-      c.classList.add('screen-reader-text');
+    let children: HTMLCollection = htmlElement.children;
+    let i: number = 0;
 
-      newHead.addEventListener('click', (e) => {
-        let classes: DOMTokenList = (e.target as HTMLInputElement).classList;
-        
-        let elements = document.querySelectorAll(`.${componentClass}.${elementClass}`);
-        for (let element of elements) {
-          element.setAttribute('style', 'display: none');
+    for (let c of children) {
+      if (c.tagName === head.toUpperCase()) {
+        c.classList.add('screen-reader-text');
+
+        let newHead = document.createElement('li');
+
+        newHead.addEventListener('click', (e) => {
+          let classes: DOMTokenList = (e.target as HTMLInputElement).classList;
+          let allElements: string = `.${classes[0]}.${elementClass}`;
+          let selectedElement: string = `.${classes[1]}.${elementClass}`;
+          let allHeads: string = `li.${classes[0]}`;
+          let selectedHead: string = `li.${classes[1]}`;
+
+          let elements = document.querySelectorAll(allElements);
+          for (let element of elements) {
+            element.setAttribute('style', 'display: none');
+          }
+
+          elements = document.querySelectorAll(selectedElement);
+          for (let element of elements) {
+            element.removeAttribute('style');
+          }
+
+          elements = document.querySelectorAll(allHeads);
+          for (let element of elements) {
+            element.classList.remove('active');
+          }
+
+          document.querySelector(selectedHead)?.classList.add('active');
+        })
+        newHead.textContent = c.textContent;
+        newHead.classList.add(componentClassIndex);
+        newHead.classList.add(`${componentClassIndex}-${i}`);
+        if (i <= 0) {
+          newHead.classList.add('active');
         }
+        newHeads.appendChild(newHead);
 
-        elements = document.querySelectorAll(`.${classes[0]}.${componentClass}.${elementClass}`);
-        for (let element of elements) {
-          element.removeAttribute('style');
+        i++;
+      } else {
+        c.classList.add(componentClassIndex);
+        c.classList.add(`${componentClassIndex}-${i - 1}`);
+        c.classList.add(elementClass);
+        if (i >= 2) {
+          c.setAttribute('style', 'display: none');
         }
-
-        elements = document.querySelectorAll(`li.${componentClass}`);
-        for (let element of elements) {
-          element.classList.remove('active');
-        }
-
-        document.querySelector(`li.${classes[0]}.${componentClass}`)?.classList.add('active');
-      })
-      newHead.textContent = c.textContent;
-      newHead.classList.add(`${componentClass}-${i}`);
-      newHead.classList.add(componentClass);
-      if (i <= 0) {
-        newHead.classList.add('active');
-      }
-      newHeads.appendChild(newHead);
-  
-      wrapper.classList.add(`${componentClass}-${i}`);
-      wrapper.classList.add(componentClass);
-
-      i++;
-    } else {
-      c.classList.add(`${componentClass}-${i - 1}`);
-      c.classList.add(componentClass);
-      c.classList.add(elementClass);
-      if (i >= 2) {
-        c.setAttribute('style', 'display: none');
       }
     }
+
+    htmlElement.prepend(newHeads);
+    htmlElementIndex++;
   }
-  element.prepend(newHeads);
 }

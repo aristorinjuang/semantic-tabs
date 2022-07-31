@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/aristorinjuang/semantic-tabs#readme",
   "devDependencies": {
-    "minify": "^9.1.0"
+    "minify": "^9.1.0",
+    "typescript": "^4.7.4"
   }
 }

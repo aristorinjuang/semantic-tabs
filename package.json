@@ -1,7 +1,7 @@
 {
   "name": "semantic-tabs",
-  "version": "1.0.0",
-  "description": "SemanticTabs is a pure JavaScript or VanillaJS library built on TypeScript that can convert semantic HTML tags to tabs. It is only 1.4 kB.",
+  "version": "2.0.0",
+  "description": "SemanticTabs is a pure JavaScript or VanillaJS library built on TypeScript that can convert semantic HTML tags to tabs. It is only 1.09 kB.",
   "main": "semantic-tabs.js",
   "scripts": {
     "build": "tsc && minify semantic-tabs.js > semantic-tabs.min.js",
